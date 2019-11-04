@@ -1,0 +1,79 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 18.02.0 ] */
+/* [wxMaxima: input   start ] */
+Ejercicio1:block(
+    f(x):=log(x+1),
+    g(x):=abs(2*cos(x)*sin(x)),
+    min:0,
+    max:4,
+    pasos:20,
+    with_slider_draw(
+        n, makelist((max/pasos)*i, i, min, pasos),
+        
+        title="Ejercicio 1",
+        xrange=[min, max],
+        yrange=[0, 2],  
+    
+        key="log(x+1)",
+        color=blue,
+        explicit(
+            f(x), x,
+            min, n
+        ),
+    
+        key="|2*cos(x)*sin(x)|",
+        color=red,
+        explicit(
+            g(x), x,
+            min, n
+        ),
+        
+        key="Vector",
+        color=black,
+        head_length=0.05,
+        head_angle=20,
+        vector([n, g(n)], [0, f(n)-g(n)])
+    )
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+Ejercicio 2 A
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+    P(x):=cardinality(subset(setify(makelist(i, i, 1, x)),primep));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+Ejercicio 2 B
+Empiezo en 2 para que el log() del denominador no de infinito
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+n:2;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+Bucle
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+unless abs(P(n)/n-1/log(n)) < 1/80 do (n: n+1, n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+n;
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 18.02.0"$
