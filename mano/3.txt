@@ -42,7 +42,7 @@ Efectivamente, me había equivocado, menos mal que re-revisé el 5555
 El pin encriptado está en la buena dirección 0x555555558010, valor 83629
 La lógica me dice que no basta con sumar 10, que hay algo más. Pero no pierdo
 nada con probar con el 83619
-Le tiro un 55555 y me da el mismo comportamiento. Debería dejar de provar
+Le tiro un 55555 y me da el mismo comportamiento. Debería dejar de probar
 con tétradas y quintadas.
 		1234-->4331
 Aaaah ya te vi wacho, le diste la vuelta.
