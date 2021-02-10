@@ -1,0 +1,35 @@
+Resumen
+		Autor: [REDACTED]
+		contraseña granada      encriptada kverehe
+		pin        1931         encriptado 3165
+
+
+
+
+Diario de... ¿desactivador de bombas? Capítulo MS-DOS
+Prosigo mi viaje para encontrar alguna bomba en que modificaran el mensaje
+de explosión o el de desactivación. Yang Chen me ha derrotado.
+
+strings -d dice que no ha modificado el mensaje de explosión. Eso me apena.
+también dice que la contraseña encriptada es
+	kverehe
+
+Ahora el buen ltrace -i nos dice, metiendo aaaaaaaaa
+	[0x40089b] strncmp("eeeeeeee\n", "kverehe\n", 9) = -6
+	aaaaaaaa-->eeeeeeee
+Clarísimo cifrado del César clave 4. Si no contamos la Ch. La ché es una letra.
+Entonces,
+	kverehe-->granada
+¿Será? ¿Me la jugaron, tal com Yang Chen jugó conmigo? Pero lo es.
+
+El procedimiento estándar nos dice que es hora del objdump -d manín.
+Ahí se ve la función encripta_num. Gracias por el ahorro de tiempo, socio.
+	El clásico 5555 me lo lleva a 6789. Me preocupa esa escalera.
+										O podría ser +1,+2,+3,+4
+	El buen 4567 me lo lleva a 5801. Eran las sumitas, suma 1234
+Sacas el valor del pin encriptado, registro 0x601068, valor 3165
+y el pin es 1931, el año en que se fué don Miguel Primo de Rivera. Lindo año.
+
+Veraderamente, no cambió el mensaje. Pero parece que lo hizo en windows. En
+lugar de puntos rodeando el "bomba desactivada" salen "Â·"
+No lo doy como cambio válido al no ser intencional.

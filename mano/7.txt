@@ -1,0 +1,23 @@
+Bombas que resolví antes de que empezara la fase de resolución... así que no
+anoté nada más que las respuestas. Se puede considerar el prólogo de canonicidad
+discutible a la saga de las bombas.
+Resolver bombas está bien entretenido. Lo curioso es que no tuve problema, cojo
+otras cuantas y... Ataca Yang Chen. Lo que es la aleatoriedad, eh.
+
+En orden de resolución
+
+	Ana V.
+		contraseña AnaVico       cifrada Huh]pjv
+		pin           6847       cifrado 4625
+
+	Jordi C.
+		contraseña halflafe      cifrada lepjpeji
+		pin            5151      cifrado 81182361
+
+	Jaime C.
+		contraseña rd_i^`nbk     cifrada realbetis      (no, no están al revés)
+		pin             1010     cifrado 2020
+
+	Javier M.
+		contraseña realbetis     cifrada tgcndgvku
+		pin             2307     cifrado 3216

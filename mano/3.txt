@@ -1,0 +1,55 @@
+Resumen
+		Autor: [REDACTED]
+		contraseña Pillado(:      encriptada Qhmkbcp';
+		pin        83629          encriptado 91638
+
+
+
+
+Diario de... ¿desactivador de bombas? Capítulo TRES-Phantasmagoria of Dim. Dream
+Continúo mi viaje para encontrar alguna bomba en que modificaran el mensaje
+de explosión o el de desactivación. Sigo pensando en la bomba de Yang Chen.
+
+Mi hombre Fran Prados no le puso chmod +x a la bomba. Un caballero de los que no
+quedan, me da la potestad absoluta sobre lo que ejecuto en mi sistema.
+
+Pero bueno, ya te la sabes manín. Procedimiento estándar.
+De nuevo strings revela que no ha cambiado el mensaje, y que la contraseña
+encriptada es Qhmkbcp';
+
+Mi hombre el Fran Prados no cesa de sorprenderme, pues su bomba se encuentra a
+prueba de ltrace -i
+Se acabó el procedimiento estándar manín. Toca objdump prematuro.
+Encuentro la clásica fº codificarPasswd, y varias que me preocupan.
+masmenosuno,diezElevadoA,contarcifras... Se intuye el cifrado, pero... posee
+las herramientas necesarias para rivalizar con el mismo Yang Chen.
+
+El caso, gdb, un br en codificarPasswd, y clásica contraseña aaaaaaaa
+A no ser... que, por la naturaleza de la contraseña asuma desplazamiento en el
+código ascii, coja un calculadora online y compruebe... Nah, nada parece palabra
+
+Después de demasiado tiempo sin revisar %rbx, tengo que
+	aaaaaaaa\n-->b`b`b`b`\v
+	bbbbbbbb\n-->cacacaca\v
+Ahí está, +1,-1
+	Qhmkbcp';-->Pillado(:
+Increíble bomba la verdad.
+Ahora volvemos al procedimiento estandar, como siempre.
+	Meto el clásico 5555 y me tira al toque un 5556, se prosigue
+		1111-->1121     2222-->2232      3333-->3343
+			    4444-->4454      5555-->5565
+Efectivamente, me había equivocado, menos mal que re-revisé el 5555
+El pin encriptado está en la buena dirección 0x555555558010, valor 83629
+La lógica me dice que no basta con sumar 10, que hay algo más. Pero no pierdo
+nada con probar con el 83619
+Le tiro un 55555 y me da el mismo comportamiento. Debería dejar de provar
+con tétradas y quintadas.
+		1234-->4331
+Aaaah ya te vi wacho, le diste la vuelta.
+		83629-->92638-->92629
+Aquí ^ es donde me olvido que hay que aplicar las operaciones en orden contrario
+		83629-->83619-->91638
+
+Aaah amigo Prados, ya estaría. Te perdono lo de no modificar los mensajes. Reuní
+el coraje necesario para enfrentarme a la amenaza del oriente.
+Voy a por ti, Wang Chen.
