@@ -1,0 +1,112 @@
+Resumen:
+		Autor: Yang Chen
+		contraseña hola         No la guarda encriptada
+		pin        1107         encriptado 1109
+
+
+
+
+Diario de... ¿desactivador de bombas? Capítulo UNO (!)
+Parto en mi viaje para encontrar alguna bomba en que modificaran el mensaje
+de explosión o el de desactivación. Cuatro que desactivé antes de este
+viaje no lo hicieron.
+
+Partiendo de un sencillo
+	$strings -d Bomba_YangChen
+Veo que en absoluto los cambió. Eso me apena.
+Pero veo que al final pone
+	;*3$"
+	hola
+	mundo
+en lugar de
+	;*3$"
+	tucontraseñaencriptadaaquí
+, lo cual es el resultado normal. Interesante.
+
+Ahora procedimiento estandar manín.
+	$ ltrace -i ./Bomba_YangChen
+meto aaaaaaaa y la linea amiga nos dice que aaaaaaa-->aaaaaaa
+	[0x40084f] strncmp("aaaaaaaa\nmundo\n", "hola\nmundo\n", 12) = -7
+La contraseña es clarísimamente hola. El strings me lo dijo. Escondió la
+contraseña sin encriptar a la vista. Soberbia jugada.
+
+La contraseña no es hola. Ahora hace diferente
+	[0x40084f] strncmp("hola\nmundo\n\001", "hola\nmundo\n", 12) = 1
+¿De dónde saldrá este 001? Bien curioso.
+Sigo probando.
+	sopita-->sopita test-->test[···]\001 pep-->pep[···]\001
+	guardiola-->guardiola[···]@
+Claramente depende del número de letras. Con cinco letras no añade nada.
+Ahora que lo pienso, el hola mundo del strings ya me decía que metiera un
+espacio... 	Ayyy...
+No es eso. Yang Chen, me has superado. He de sacar el GDB.
+Objdump... Y la función cifrarpass está ahí, bastante fresquito.
+
+Sacando el valor de los registros donde está guardada mi contraseña nomás la
+meto, probando con hola, de char en char, hay
+
+h,o,l,a,/000,/000,/000,...
+
+Temo que esté sumando uno al último caracter. Mi razonamiento anterior es
+erroneo. a-1 es `
+	¿hol`-->hola?
+	hol`-->hol`[···]\001
+No saco nada más en claro con GDB. Me has derrotado, Yang Chen. Por ahora.
+
+
+
+Diario de... ¿desactivador de bombas? Capítulo CUATRO-Diamond Is Unbreakable
+No cejo en mi viaje para encontrar alguna bomba en que modificaran el mensaje
+de explosión o el de desactivación. He reunido el coraje.
+
+Puro gdb, remeto aaaaaaaa, me lo cambia a aaaaaaaa\nmundo\n
+Carencia de nueva información, eh... Te llegas a acostumbar... es como esperar
+que aparezcan cintas con el doblaje de aquella temporada que solo se emitió en
+canal extremadura. 10 años y contando...
+
+Se vuelve a ltrace, pruebas en masa. Da igual meter cualquier cadena, tiene
+el mismo comportamiento
+
+1 caracter    añade W\266\f\001
+2 caracteres  añade \266\f\001
+3 caracteres  añade \f\001
+4 caracteres  añade \001
+5 caracteres  añade
+6 caracteres  añade
+7 caracteres  añade
+8 caracteres  añade
+9 caracteres  añade @
+10 caracteres añade
+
+La verdad estoy harto confuso.
+La codificación no hace más que sumar \nmundo\n al string si tiene [5,10]-{9}
+casillas. Claramente para que quede hola\nmundo\n hay que meter hola, pero no
+va. Sigo probando a ver si hay algún comportamiento que no haya detectado.
+Pensé que alguna letra o signo la ignoraría. No. Pensé que ignoraría las
+mayúsculas. No.
+
+Me estoy quedando sin opciones.
+GHEX revela que la contraseña encriptada es
+<<hola
+mundo>>
+con un 0A en medio, salto de linea, no imprimible. No me gustan los caracteres
+no imprimibles. Aunque realmente no es nada que no supiera.
+
+\001 es un caracter de terminación o algo así.
+
+
+
+
+Eones, milenios incluso tardé hasta que le pedí a un amigo que probara en
+micro$oft windo$ (con visual studio). Puso hola y le fué al toque.
+Luego le pedí que probara con una máquina virtual de linux, y le fué al toque.
+Inexplicable.
+
+
+Ahora, con mi remoto amigo a los controles,
+	5555-->5557			1111-->1113
+El pin cifrado es 1109, descifrado 1107
+
+Le he perdido el respeto a Yang Chen. Su bomba no tenía complejidad, mas por un
+error de alguna índole, me llevó a límites insospechados. El mérito no es tuyo,
+Chen'er, es de la incompatibilidad de arquitecturas o algo. >:^[
